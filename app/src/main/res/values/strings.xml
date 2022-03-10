@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">JetpackComposeTutorials</string>
+    <string name="title_activity_vertical_and_horizontal_scrolling">
+        VerticalAndHorizontalScrollingActivity
+    </string>
+    <string name="title_activity_simple_recycler_view">SimpleRecyclerViewActivity</string>
+    <string name="title_activity_flexible_layout">FlexibleLayoutActivity</string>
+
+    <string name="show_less">Show Less</string>
+    <string name="show_more">Show More</string>
+</resources>
