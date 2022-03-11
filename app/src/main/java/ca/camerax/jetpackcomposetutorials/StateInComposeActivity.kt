@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,6 +15,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -80,7 +84,6 @@ fun FillUI() {
         Divider(color = Color.LightGray, modifier = Modifier.padding(all = 10.dp))
 
         HorizontalUIItems()
-
     }
 
 }
@@ -182,18 +185,29 @@ fun CollectionItem() {
 @Composable
 fun HorizontalUIItems() {
 
-    val stateOfButton = remember{ mutableStateOf(false)}
-    val extraPadding = if(stateOfButton.value) 40.dp else 0.dp
+    val stateOfButton = remember { mutableStateOf(false) }
+    //val extraPadding = if(stateOfButton.value) 40.dp else 0.dp
+    val extraPadding by animateDpAsState(
+        targetValue = if (stateOfButton.value) 40.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,//DampingRatioHighBouncy,
+            stiffness = Spring.StiffnessLow//StiffnessHigh
+        )
+    )
 
     Surface(
-        modifier = Modifier.fillMaxWidth().padding(20.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
         elevation = 10.dp,
         color = Color.LightGray,
         shape = RoundedCornerShape(corner = CornerSize(16.dp))
     ) {
 
         Row(
-            modifier = Modifier.padding(20.dp).padding(bottom = extraPadding),
+            modifier = Modifier
+                .padding(20.dp)
+                .padding(bottom = extraPadding.coerceAtLeast(0.dp)),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -210,8 +224,14 @@ fun HorizontalUIItems() {
                 )
             }
 
-            OutlinedButton(onClick = { stateOfButton.value = !stateOfButton.value }, modifier = Modifier.padding(10.dp)) {
-                Text(text = if(stateOfButton.value) "Show less" else "Show more", color = Color.Black)
+            OutlinedButton(
+                onClick = { stateOfButton.value = !stateOfButton.value },
+                modifier = Modifier.padding(10.dp)
+            ) {
+                Text(
+                    text = if (stateOfButton.value) "Show less" else "Show more",
+                    color = Color.Black
+                )
             }
         }
     }
