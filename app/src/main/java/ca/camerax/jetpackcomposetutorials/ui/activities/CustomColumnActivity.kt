@@ -1,4 +1,4 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -22,7 +22,9 @@ class CustomColumnActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            UniversalScaffoldTopAppBar(topAppBarTitle = "Custom Column", SetToolBarMenu()) {
+            SetupScaffold(
+                topBar = universalScaffoldTopAppBar(topAppBarTitle = "Custom Column", actions = SetToolBarMenu())
+            ) {
                 FillCustomColumn()
             }
         }

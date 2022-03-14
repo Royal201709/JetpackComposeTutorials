@@ -1,4 +1,4 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -33,18 +33,20 @@ class LazyColumnAndSimpleListActivity : ComponentActivity() {
 
         setContent {
             val context = LocalContext.current
-            WhiteSurface {
+            //WhiteSurface {
                 //UniversalTopAppBar("Remember Coroutine Scope")
-                UniversalScaffoldTopAppBar(
-                    topAppBarTitle = "Simple list",
-                    SimpleListTopAppbarActions()
+                SetupScaffold(
+                    topBar =  universalScaffoldTopAppBar(
+                        topAppBarTitle = "Simple list",
+                        actions = SimpleListTopAppbarActions()
+                    )
                 ) {
                     Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
                         ShowAllLists()
                     }
                 }
                 //Divider(modifier = Modifier.padding(all = 10.dp), color = Color.LightGray)
-            }
+            //}
         }
     }
 }

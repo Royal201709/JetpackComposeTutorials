@@ -12,47 +12,49 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JetpackComposeTutorials">
         <activity
-            android:name=".BasicUIActivity"
+            android:name=".ui.activities.BottomNavigationActivity"
             android:exported="false" />
         <activity
-            android:name=".PhotoCardActivity"
+            android:name=".ui.activities.BasicUIActivity"
             android:exported="false" />
         <activity
-            android:name=".CustomColumnActivity"
+            android:name=".ui.activities.PhotoCardActivity"
             android:exported="false" />
         <activity
-            android:name=".LazyColumnWithCoroutine"
+            android:name=".ui.activities.CustomColumnActivity"
             android:exported="false" />
         <activity
-            android:name=".ConstraintLayoutActivity"
+            android:name=".ui.activities.LazyColumnWithCoroutine"
             android:exported="false" />
         <activity
-            android:name=".CustomLayoutActivity"
+            android:name=".ui.activities.ConstraintLayoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.CustomLayoutActivity"
             android:exported="true" />
         <activity
-            android:name=".MaterialThemeScaffold"
+            android:name=".ui.activities.MaterialThemeScaffold"
             android:exported="true" />
         <activity
-            android:name=".FlexibleLayoutActivity"
+            android:name=".ui.activities.FlexibleLayoutActivity"
             android:exported="true"
             android:label="@string/title_activity_flexible_layout"
             android:theme="@style/Theme.JetpackComposeTutorials.NoActionBar" />
         <activity
-            android:name=".StateInComposeActivity"
+            android:name=".ui.activities.StateInComposeActivity"
             android:exported="true"
             android:label="@string/title_activity_simple_recycler_view" />
         <activity
-            android:name=".LazyColumnAndSimpleListActivity"
+            android:name=".ui.activities.LazyColumnAndSimpleListActivity"
             android:exported="true" />
         <activity
-            android:name=".VerticalAndHorizontalScrollingActivity"
+            android:name=".ui.activities.VerticalAndHorizontalScrollingActivity"
             android:exported="true"
             android:label="@string/title_activity_vertical_and_horizontal_scrolling"
             android:theme="@style/Theme.JetpackComposeTutorials.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.JetpackComposeTutorials.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

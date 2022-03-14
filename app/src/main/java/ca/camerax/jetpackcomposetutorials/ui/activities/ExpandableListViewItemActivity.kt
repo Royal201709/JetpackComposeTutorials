@@ -1,4 +1,4 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ca.camerax.jetpackcomposetutorials.R
 
 
 class BasicUIActivity : ComponentActivity() {
@@ -30,7 +31,9 @@ class BasicUIActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            UniversalScaffoldTopAppBar(topAppBarTitle = "Basic UI code lab") {
+            SetupScaffold(
+                topBar = universalScaffoldTopAppBar(topAppBarTitle = "Basic UI code lab")
+            ) {
                 MyBasicUI()
             }
         }

@@ -1,4 +1,4 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.os.Bundle
 import android.widget.Toast

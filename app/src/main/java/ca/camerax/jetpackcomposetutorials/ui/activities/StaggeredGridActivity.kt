@@ -1,4 +1,4 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 
 class CustomLayoutActivity : ComponentActivity() {
 
+    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -30,7 +32,9 @@ class CustomLayoutActivity : ComponentActivity() {
                 "Design", "Fashion", "Film", "History", "Maths", "Music", "People", "Philosophy",
                 "Religion", "Social sciences", "Technology", "TV", "Writing"
             )
-            WhiteSurface {
+            SetupScaffold(topBar = universalScaffoldTopAppBar(
+                topAppBarTitle = "Staggered Grid layout",
+            )) {
                 ContentOfActivity(topics = topics)
             }
         }

@@ -1,4 +1,4 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,7 +19,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ca.camerax.jetpackcomposetutorials.model.DataProvider
 import ca.camerax.jetpackcomposetutorials.model.User
 import ca.camerax.jetpackcomposetutorials.ui.theme.JetpackComposeTutorialsTheme
 

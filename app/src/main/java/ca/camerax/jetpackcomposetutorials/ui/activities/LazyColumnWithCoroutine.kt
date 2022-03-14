@@ -1,9 +1,11 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Button
@@ -22,15 +24,10 @@ class LazyColumnWithCoroutine : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WhiteSurface {
-                UniversalScaffoldTopAppBar(topAppBarTitle = "Remember Coroutine Scope"){
-                    ScrollingList()
-                }
-                /*Column {
-                    UniversalTopAppBar(topAppBarTitle = "Remember Coroutine Scope")
-                    Divider(modifier = Modifier.padding(all = 10.dp), color = Color.LightGray)
-                    ScrollingList()
-                }*/
+            SetupScaffold(
+                topBar = universalScaffoldTopAppBar(topAppBarTitle = "Remember Coroutine Scope")
+            ) {
+                ScrollingList()
             }
         }
     }
@@ -39,7 +36,9 @@ class LazyColumnWithCoroutine : ComponentActivity() {
 @Composable
 fun ScrollingList() {
     val listSize = 100
+    // We save the scrolling position with this state
     val scrollingState = rememberLazyListState()
+    // We save the coroutine scope where our animated scroll will be executed
     val rememberCoroutine = rememberCoroutineScope()
 
     Column {

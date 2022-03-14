@@ -1,4 +1,4 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,10 +21,15 @@ import androidx.constraintlayout.compose.Dimension
 import ca.camerax.jetpackcomposetutorials.util.CommonComposeFunctions.firstBaselineToTop
 
 class ConstraintLayoutActivity : ComponentActivity() {
+
+    @OptIn(ExperimentalMaterialApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WhiteSurface {
+            SetupScaffold(topBar = universalScaffoldTopAppBar(
+                topAppBarTitle = "Constraint Layout",
+                //actions = topAppbarActions()
+            )) {
                 Column {
                     ConstraintLayoutContent()
                     Divider(color = Color.LightGray, modifier = Modifier.padding(all = 10.dp))
@@ -32,7 +38,6 @@ class ConstraintLayoutActivity : ComponentActivity() {
                     ConstraintLayoutContent2()
                     Divider(color = Color.LightGray, modifier = Modifier.padding(all = 10.dp))
                     CreateLargeConstraintLayout()
-
                 }
             }
         }

@@ -1,4 +1,4 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.app.Activity
 import android.content.Context
@@ -19,10 +19,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,7 +43,7 @@ import ca.camerax.jetpackcomposetutorials.model.User
 import ca.camerax.jetpackcomposetutorials.ui.theme.JetpackComposeTutorialsTheme
 import ca.camerax.jetpackcomposetutorials.util.CommonComposeFunctions.startTargetActivity
 import java.util.*
-
+import ca.camerax.jetpackcomposetutorials.R
 
 @ExperimentalMaterialApi
 class MainActivity : ComponentActivity() {
@@ -216,6 +213,7 @@ fun FillUserList(
     //content: @Composable (user:User) -> Unit
 ) {
     val context = LocalContext.current
+    // We save the scrolling position with this state that can also be used to programmatically scroll the list
     val scrollState = rememberLazyListState()
     var index = 0
     LazyColumn(
@@ -225,7 +223,7 @@ fun FillUserList(
     ) {
         items(userList) { userItem ->
             //content(userItem)
-            UserListItem(user = userItem, painter = painterResource(R.drawable.img), index){
+            UserListItem(user = userItem, painter = painterResource(R.drawable.img), index) {
                 index++
                 onItemClick(selectedItemIndex = index, context = context)
             }
@@ -255,7 +253,7 @@ fun getUserList(state: MutableState<TextFieldValue>): MutableList<User> {
 }
 
 @ExperimentalMaterialApi
-fun onItemClick(selectedItemIndex: Int = 0, context: Context){
+fun onItemClick(selectedItemIndex: Int = 0, context: Context) {
 
     when (selectedItemIndex) {
         1 -> {
@@ -267,31 +265,42 @@ fun onItemClick(selectedItemIndex: Int = 0, context: Context){
         3 -> {
             context.startTargetActivity(MaterialThemeScaffold())
         }
-        5 -> {
+        4 -> {
             context.startTargetActivity(CustomLayoutActivity())
+        }
+        5 -> {
+            context.startTargetActivity(BottomNavigationActivity())
+        } else -> {
+        context.startTargetActivity(BottomNavigationActivity())
         }
     }
 }
 
 
 @Composable
-fun UserListItem(user: User, painter: Painter, selectedItemIndex: Int = 0, OnItemClick: (Int) -> Unit) {
+fun UserListItem(
+    user: User,
+    painter: Painter,
+    selectedItemIndex: Int = 0,
+    OnItemClick: (Int) -> Unit
+) {
 
     Card(
         modifier = Modifier
-            .padding(horizontal = 8.dp, vertical = 8.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp, vertical = 4.dp),
         elevation = 4.dp,
-        backgroundColor = Color.White,
+        backgroundColor = Color.LightGray,
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
     ) {
         Surface(
             modifier = Modifier
                 .clip(RoundedCornerShape(16.dp))
-                .clickable {
+                .clickable(onClick = {
                     OnItemClick(selectedItemIndex)
-                },
-            shape = MaterialTheme.shapes.medium, elevation = 1.dp
+                }),
+            shape = MaterialTheme.shapes.medium,
+            elevation = 1.dp
         ) {
             Row(
                 modifier = Modifier
@@ -299,24 +308,49 @@ fun UserListItem(user: User, painter: Painter, selectedItemIndex: Int = 0, OnIte
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                CircularImageView(size = 56.dp, painter = painter)
 
+                /**
+                 * In order to show place holder while the picture is loading I use a Surface where we specify a circle shape and the placeholder color
+                 * */
+                /*Surface(
+                    modifier = Modifier
+                        .size(56.dp)
+                        .padding(1.dp)// margin
+                        .background(color = Color.Black)
+                        .clip(CircleShape)
+                        .padding(10.dp),// real padding
+                    shape = CircleShape,
+                    color = Color.Black//MaterialTheme.colors.surface//onSurface.copy(alpha = 0.2f)
+                ) {
+                    CircularImageView(size = 56.dp, painter = painter)
+                }*/
+                CircularImageView(size = 56.dp, painter = painter)
                 //Add a horizontal space between the image and the column
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                    //.align(Alignment.CenterVertically)
+                        .align(Alignment.CenterVertically)
                 ) {
+
                     Text(text = user.userFullName)
                     //Add a vertical space between the author and message texts
                     Row {
-                        Text(text = user.transactionStatus)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = user.transactionDate)
-                    }
 
+                        /**
+                         * Modifier.alignByBaseline() added to below Texts for aligning them in the same line(parallel)
+                         * */
+                        Text(modifier = Modifier.alignByBaseline(), text = user.transactionStatus)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                            Text(
+                                modifier = Modifier.alignByBaseline(),
+                                text = user.transactionDate,
+                                style = MaterialTheme.typography.body2
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -356,8 +390,8 @@ fun DefaultPreview() {
                     transactionDate = "22/08/2021"
                 ),
                 painter = painterResource(R.drawable.img)
-            ){
-                onItemClick(0,context)
+            ) {
+                onItemClick(0, context)
             }
         }
     }

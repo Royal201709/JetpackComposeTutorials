@@ -1,4 +1,4 @@
-package ca.camerax.jetpackcomposetutorials
+package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -29,25 +29,41 @@ class MaterialThemeScaffold : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WhiteSurface {
-                UniversalScaffoldTopAppBar(
-                    "Scaffold TopAppBar",
-                    topAppbarActions()
-                ) { BodyContent() }
+            SetupScaffold(
+                topBar = universalScaffoldTopAppBar(
+                    topAppBarTitle = "Scaffold TopAppBar",
+                    actions = topAppbarActions()
+                )
+            ) {
+                BodyContent()
             }
         }
     }
 }
 
-@ExperimentalMaterialApi
 @Composable
-fun UniversalScaffoldTopAppBar(
-    topAppBarTitle: String,
-    actions: @Composable (RowScope.() -> Unit) = {},
+fun SetupScaffold(
+    topBar: @Composable () -> Unit = {},
+    bottomBar: @Composable () -> Unit = {},
     content: @Composable () -> Unit
 ) {
-    val context = (LocalContext.current as? Activity)
-    Scaffold(topBar = {
+    Scaffold(
+        topBar = topBar,
+        bottomBar = bottomBar
+    ) {
+        content()
+    }
+}
+
+@ExperimentalMaterialApi
+@Composable
+fun universalScaffoldTopAppBar(
+    topAppBarTitle: String,
+    navigationIcon: @Composable (() -> Unit) = topAppbarSimpleBackNavigationAction(),
+    actions: @Composable (RowScope.() -> Unit) = {},
+): @Composable () -> Unit {
+
+    return {
         TopAppBar(
             /* modifier = Modifier
                  .padding(horizontal = 8.dp, vertical = 8.dp)
@@ -59,21 +75,24 @@ fun UniversalScaffoldTopAppBar(
                     color = Color.Black
                 )
             },
-            navigationIcon = {
-                IconButton(onClick = {
-                    context?.onBackPressed()
-                    Toast.makeText(context, "Back button pressed", Toast.LENGTH_SHORT).show()
-                }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Back Button")
-                }
-            },
+            navigationIcon = navigationIcon,
             actions = actions,
             backgroundColor = Color.White,
             elevation = 8.dp,
+            )
+    }
+}
 
-        )
-    }) {
-        content()
+@Composable
+fun topAppbarSimpleBackNavigationAction(): @Composable (() -> Unit) {
+    return {
+        val context = (LocalContext.current as? Activity)
+        IconButton(onClick = {
+            context?.onBackPressed()
+            Toast.makeText(context, "Back button pressed", Toast.LENGTH_SHORT).show()
+        }) {
+            Icon(Icons.Filled.ArrowBack, contentDescription = "Back Button")
+        }
     }
 }
 
@@ -134,8 +153,8 @@ fun SimpleList() {
                 user = transactionList[index], painter = rememberImagePainter(
                     data = "https://developer.android.com/images/brand/Android_Robot.png"
                 )
-            ){
-                onItemClick(index,context)
+            ) {
+                onItemClick(index, context)
             }
         }
     }
