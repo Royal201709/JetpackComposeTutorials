@@ -11,6 +11,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -215,16 +216,14 @@ fun FillUserList(
     val context = LocalContext.current
     // We save the scrolling position with this state that can also be used to programmatically scroll the list
     val scrollState = rememberLazyListState()
-    var index = 0
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         state = scrollState,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        items(userList) { userItem ->
+        itemsIndexed(userList) { index, userItem ->
             //content(userItem)
             UserListItem(user = userItem, painter = painterResource(R.drawable.img), index) {
-                index++
                 onItemClick(selectedItemIndex = index, context = context)
             }
 

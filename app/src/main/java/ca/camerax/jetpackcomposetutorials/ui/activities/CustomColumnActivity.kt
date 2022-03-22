@@ -46,14 +46,12 @@ fun SetToolBarMenu(): @Composable (RowScope.() -> Unit) {
 
 @Composable
 fun FillCustomColumn() {
-    //WhiteSurface {
     MyOwnColumn {
         Text("MyOwnColumn")
         Text("places items")
         Text("vertically.")
         Text("We've done it by hand!")
     }
-    //}
 }
 
 @Composable

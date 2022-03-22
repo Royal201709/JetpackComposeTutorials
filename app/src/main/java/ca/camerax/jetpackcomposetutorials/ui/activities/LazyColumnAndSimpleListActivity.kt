@@ -32,21 +32,16 @@ class LazyColumnAndSimpleListActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val context = LocalContext.current
-            //WhiteSurface {
-                //UniversalTopAppBar("Remember Coroutine Scope")
-                SetupScaffold(
-                    topBar =  universalScaffoldTopAppBar(
-                        topAppBarTitle = "Simple list",
-                        actions = SimpleListTopAppbarActions()
-                    )
-                ) {
-                    Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
-                        ShowAllLists()
-                    }
+            SetupScaffold(
+                topBar = universalScaffoldTopAppBar(
+                    topAppBarTitle = "Simple list",
+                    actions = SimpleListTopAppbarActions()
+                )
+            ) {
+                Row(modifier = Modifier.horizontalScroll(rememberScrollState())) {
+                    ShowAllLists()
                 }
-                //Divider(modifier = Modifier.padding(all = 10.dp), color = Color.LightGray)
-            //}
+            }
         }
     }
 }
