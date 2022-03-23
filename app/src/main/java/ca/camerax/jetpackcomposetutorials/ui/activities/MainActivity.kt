@@ -256,7 +256,7 @@ fun getUserList(state: MutableState<TextFieldValue>): MutableList<User> {
 fun onItemClick(selectedItemIndex: Int = 0, context: Context) {
 
     when (selectedItemIndex) {
-        1 -> {
+      /*  1 -> {
             context.startTargetActivity(VerticalAndHorizontalScrollingActivity())
         }
         2 -> {
@@ -270,8 +270,12 @@ fun onItemClick(selectedItemIndex: Int = 0, context: Context) {
         }
         5 -> {
             context.startTargetActivity(BottomNavigationActivity())
-        } else -> {
-        context.startTargetActivity(BottomNavigationActivity())
+        }*/
+        1 -> {
+            context.startTargetActivity(BasicUIComponentView())
+        }
+        else -> {
+        context.startTargetActivity(BasicUIComponentView())
         }
     }
 }

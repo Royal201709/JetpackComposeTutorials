@@ -47,6 +47,10 @@
         <activity
             android:name=".ui.activities.LazyColumnAndSimpleListActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".ui.activities.BasicUIComponentView"
+            android:exported="true" />
         <activity
             android:name=".ui.activities.VerticalAndHorizontalScrollingActivity"
             android:exported="true"
