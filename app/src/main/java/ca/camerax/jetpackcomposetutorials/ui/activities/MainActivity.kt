@@ -10,7 +10,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
@@ -255,7 +254,7 @@ fun getUserList(state: MutableState<TextFieldValue>): MutableList<User> {
 fun onItemClick(selectedItemIndex: Int = 0, context: Context) {
 
     when (selectedItemIndex) {
-      /*  1 -> {
+        1 -> {
             context.startTargetActivity(VerticalAndHorizontalScrollingActivity())
         }
         2 -> {
@@ -269,12 +268,12 @@ fun onItemClick(selectedItemIndex: Int = 0, context: Context) {
         }
         5 -> {
             context.startTargetActivity(BottomNavigationActivity())
-        }*/
-        1 -> {
-            context.startTargetActivity(BasicUIComponentView())
+        }
+        6 -> {
+            context.startTargetActivity(MBasicListActivity())
         }
         else -> {
-        context.startTargetActivity(BasicUIComponentView())
+            context.startTargetActivity(BottomNavigationActivity())
         }
     }
 }
