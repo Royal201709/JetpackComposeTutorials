@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import ca.camerax.jetpackcomposetutorials.ui.theme.JetpackComposeTutorialsTheme
 import ca.camerax.jetpackcomposetutorials.R
 
@@ -230,6 +231,7 @@ fun CollectionItem() {
 
         Column(modifier = Modifier
             .padding(bottom = 2.dp)
+            .fillMaxWidth()
             .constrainAs(collectionNameAndDateId) {
                 start.linkTo(collectionTrendingId.start)
                 end.linkTo(moreOptionsId.start)
@@ -237,8 +239,9 @@ fun CollectionItem() {
             }) {
 
             Text(
-                text = "Collection name",
-                fontSize = 12.sp
+                text = "Collection namexzcx cxczxczxczxc zxzczxczcx czxczxc sdsadsad",
+                fontSize = 12.sp,
+
             )
 
             Text(
