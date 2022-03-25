@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -250,6 +251,7 @@ fun getUserList(state: MutableState<TextFieldValue>): MutableList<User> {
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @ExperimentalMaterialApi
 fun onItemClick(selectedItemIndex: Int = 0, context: Context) {
 
