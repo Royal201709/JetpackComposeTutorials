@@ -51,6 +51,11 @@
         <activity
             android:name=".ui.activities.MBasicListActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".ui.activities.MConstraintLayoutActivity"
+            android:exported="true" />
+
         <activity
             android:name=".ui.activities.VerticalAndHorizontalScrollingActivity"
             android:exported="true"
