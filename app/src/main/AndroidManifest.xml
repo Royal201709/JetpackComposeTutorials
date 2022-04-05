@@ -55,6 +55,9 @@
         <activity
             android:name=".ui.activities.MConstraintLayoutActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.activities.MPresentationDetailsScreen"
+            android:exported="true" />
 
         <activity
             android:name=".ui.activities.VerticalAndHorizontalScrollingActivity"
