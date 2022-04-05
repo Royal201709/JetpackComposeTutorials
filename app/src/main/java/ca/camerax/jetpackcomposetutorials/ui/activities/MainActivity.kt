@@ -274,6 +274,9 @@ fun onItemClick(selectedItemIndex: Int = 0, context: Context) {
         6 -> {
             context.startTargetActivity(MBasicListActivity())
         }
+        7 -> {
+            context.startTargetActivity(MPresentationDetailsScreen())
+        }
         else -> {
             context.startTargetActivity(BottomNavigationActivity())
         }
