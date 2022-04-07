@@ -1,6 +1,5 @@
 package ca.camerax.jetpackcomposetutorials.ui.activities
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity

@@ -1,18 +1,18 @@
 package ca.camerax.jetpackcomposetutorials.ui.activities
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -25,25 +25,30 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import ca.camerax.jetpackcomposetutorials.R
+import ca.camerax.jetpackcomposetutorials.model.DataProvider
+import ca.camerax.jetpackcomposetutorials.model.Message
 
 class MPresentationDetailsScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SetPresentationLayout()
+            SetPresentationLayout(DataProvider.messageList)
         }
+    }
+    private fun onItemClicked(pos: Int, msg: String) {
+        Toast.makeText(applicationContext, "Clicked Item position $pos", Toast.LENGTH_LONG).show()
     }
 }
 
 @Composable
-fun SetPresentationLayout() {
+fun SetPresentationLayout(messages: List<Message>) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
             .background(Color.LightGray)
     ) {
-        val (profileImage, playPresentation, presentationTitle, date, location, dateIcon, locationIcon, resource, topSpace, bottomSpace, listIcon, sortIcon, addResource, markAsDone) = createRefs()
+        val (profileImage, playPresentation, presentationTitle, date, location, dateIcon, locationIcon, resource, topSpace, bottomSpace, listIcon, sortIcon, addResource, markAsDone, list) = createRefs()
         Image(
             painter = painterResource(id = R.drawable.img),
             contentDescription = "Profile Image",
@@ -199,14 +204,73 @@ fun SetPresentationLayout() {
                     contentDescription = "Mark As Done",
                     modifier = Modifier.padding(4.dp)
                 )
-                Text(text = "Mark as Done", modifier = Modifier.offset(4.dp, 0.dp))
+                Text(text = "Mark as Done", modifier = Modifier.offset(4.dp, 4.dp))
+            }
+        }
+        LazyColumn(
+            modifier = Modifier
+                .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
+                .fillMaxWidth()
+                .constrainAs(list) {
+                    top.linkTo(addResource.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(markAsDone.top)
+                    height = Dimension.preferredWrapContent
+                }
+        ) {
+            itemsIndexed(messages) { index, message ->
+                Surface(
+                    shape = MaterialTheme.shapes.small,
+                    elevation = 1.dp,
+                    modifier = Modifier
+                        .padding(all = 8.dp)
+                        .clickable { /*onItemClicked(pos, message.auther)*/ },
+                    color = MaterialTheme.colors.secondaryVariant
+                ) {
+                    Row(modifier = Modifier.padding(8.dp)) {
+                        Image(
+                            painter = painterResource(id = R.drawable.img),
+                            contentDescription = "Contact profile picture",
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(CircleShape)
+                                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        var isExpanded by remember { mutableStateOf(false) }
+
+                        Column {
+                            Text(
+                                text = message.auther,
+                                color = MaterialTheme.colors.secondary,
+                                style = MaterialTheme.typography.subtitle1
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+
+                            Surface(
+                                shape = MaterialTheme.shapes.medium,
+                                elevation = 1.dp,
+                                modifier = Modifier.clickable { isExpanded = !isExpanded }) {
+                                Text(
+                                    text = message.body,
+                                    modifier = Modifier.padding(all = 4.dp),
+                                    maxLines = if (isExpanded) Int.MAX_VALUE else 1,
+                                    style = MaterialTheme.typography.subtitle2
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 }
 
+
+
 @Preview
 @Composable
 fun DisplayPresentation() {
-    SetPresentationLayout()
+    SetPresentationLayout(DataProvider.messageList)
 }
