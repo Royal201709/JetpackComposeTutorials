@@ -275,10 +275,10 @@ fun onItemClick(selectedItemIndex: Int = 0, context: Context) {
             context.startTargetActivity(MBasicListActivity())
         }*/
         1 -> {
-            context.startTargetActivity(MConstraintLayoutActivity())
+            context.startTargetActivity(MPresentationDetailsScreen())
         }
         else -> {
-            context.startTargetActivity(MConstraintLayoutActivity())
+            context.startTargetActivity(MPresentationDetailsScreen())
         }
     }
 }
